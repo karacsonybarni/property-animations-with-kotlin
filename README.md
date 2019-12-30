@@ -1,19 +1,5 @@
-Android Property Animation
+Property Animations
 ================================
-## About
-This app is for the [Android Property Animation](Todo link) codelab.
-
-## begin
-The **begin** folder is the starting point of the codelab.
-It contains an Android Studio project for the skeleton of the app which
-you will fill in as you work through the steps of the code lab.
-
-## end
-The **end** folder is the end point of the codelab.
-It contains an Android Studio project for the complete version of the application,
-which is what your code should look like when you complete all steps of the
-code lab.
-
 ## License
 All image and audio files (including *.png, *.jpg, *.svg, *.mp3, *.wav
 and *.ogg) are licensed under the CC-BY-NC license. All other files are
