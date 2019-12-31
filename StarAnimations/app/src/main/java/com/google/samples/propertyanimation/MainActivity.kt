@@ -19,6 +19,7 @@ package com.google.samples.propertyanimation
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -93,13 +94,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun translater() {
         val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 200f)
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.repeatInReverse()
         animator.disableViewDuringAnimation(translateButton)
         animator.start()
     }
 
+    private fun ObjectAnimator.repeatInReverse() {
+        repeatCount = 1
+        repeatMode = ObjectAnimator.REVERSE
+    }
+
     private fun scaler() {
+        val scale = 4f
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, scale)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, scale)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(star, scaleX, scaleY)
+        animator.repeatInReverse()
+        animator.disableViewDuringAnimation(scaleButton)
+        animator.start()
     }
 
     private fun fader() {
