@@ -115,6 +115,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fader() {
+        val animator = ObjectAnimator.ofFloat(star, View.ALPHA, 0f)
+        animator.repeatInReverse()
+        animator.disableViewDuringAnimation(fadeButton)
+        animator.start()
     }
 
     private fun colorizer() {
