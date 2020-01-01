@@ -16,16 +16,17 @@
 
 package com.google.samples.propertyanimation
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import android.animation.*
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,6 +135,64 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shower() {
+        val container = star.parent as ViewGroup
+        val newStar = addNewStarTo(container)
+        val animatorSet = createAnimatorSet(newStar, container)
+        animatorSet.start()
     }
 
+    private fun addNewStarTo(container: ViewGroup): View {
+        val newStar = createStar()
+        val containerW = container.width
+        val starW = star.width.toFloat() * newStar.scaleX
+        newStar.translationX = Math.random().toFloat() * containerW - starW / 2
+        container.addView(newStar)
+        return newStar
+    }
+
+    private fun createStar(): ImageView {
+        val newStar = ImageView(this)
+        newStar.setImageResource(R.drawable.ic_star)
+        newStar.layoutParams =
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT
+            )
+        newStar.scaleX = Math.random().toFloat() * 1.5f + .1f
+        newStar.scaleY = newStar.scaleX
+        return newStar
+    }
+
+    private fun createAnimatorSet(view: View, container: ViewGroup): Animator {
+        val mover = createMover(view, container)
+        val rotator = createRotator(view)
+        val animatorSet = createAnimatorSet(mover, rotator)
+        animatorSet.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                container.removeView(view)
+            }
+        })
+        return animatorSet
+    }
+
+    private fun createMover(view: View, container: ViewGroup): ObjectAnimator {
+        val starH = star.height.toFloat() * view.scaleY
+        val start = -starH
+        val end = container.height + starH
+        val mover = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, start, end)
+        mover.interpolator = AccelerateInterpolator(1f)
+        return mover
+    }
+
+    private fun createRotator(view: View): ObjectAnimator {
+        val rotator = ObjectAnimator.ofFloat(view, View.ROTATION, (Math.random() * 1000).toFloat())
+        rotator.interpolator = LinearInterpolator()
+        return rotator
+    }
+
+    private fun createAnimatorSet(vararg animators: Animator): AnimatorSet {
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(*animators)
+        animatorSet.duration = (Math.random() * 1500 + 500).toLong()
+        return animatorSet
+    }
 }
