@@ -71,7 +71,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-            android:text="Background Color"
+            android:text="@string/background_color"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/translateButton"
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/showerButton"
+            app:layout_constraintTop_toBottomOf="@+id/colorizeButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"
@@ -96,7 +96,8 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_star"
                 android:id="@+id/star"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/star" />
 
     </FrameLayout>
 
