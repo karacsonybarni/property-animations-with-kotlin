@@ -1,4 +1,4 @@
-PropertyAnimation - Final Code
+Property Animation
 ============================================================================
 
 License
